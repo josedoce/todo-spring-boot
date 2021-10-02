@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8"/>
+	<title>Todo App</title>
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" th:href="@{estilo.css}"/>
+	<script defer th:src="@{fontawesome-free-5.15.4-web/js/all.js}"></script>
+</head>
+<body>
+	<div class="todo-menu">
+		<h1 class="text-white-50 text-center">ToDo</h1>
+		
+		<form id="delete-form" action="http://localhost:8080/delete/" hidden="true" th:method="delete">
+			<!-- delete -->
+			<button type="submit" hidden="true" id="delete-form-btn"></button>
+		</form>
+		
+		
+		<form id="update-form" action="http://localhost:8080/update/" hidden="true" th:method="put">
+			<!-- edite -->
+			<input id="update-form-ipt-id" type="text" name="id">
+			<input id="update-form-ipt-nome" type="text" name="nome">
+			<button type="submit" hidden="true" id="update-form-btn"></button>
+		</form>
+		
+		
+		<form id="create-form" hidden="true" action="http://localhost:8080/store" th:method="post">
+			<!-- create -->
+			<input id="create-form-ipt-nome" type="text" name="nome">
+			<button type="submit" id="create-form-btn"></button>
+		</form>
+		
+		
+		<div class="input-group my-4">
+			<input id="input-todo" type="text" class="form-control" placeholder="ex: learn python"/>
+			
+			
+			<div class="input-group-append">
+				<button id="clean-btn" type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button>
+				<button id="create-save-btn" type="button" class="btn btn-primary botao-de-salvar"></button>
+			</div>
+		</div>
+		
+		
+		<div id="alerta"></div>
+		
+		
+		<div class="todos">
+			<div th:each="todo : ${todos}" class="form-group input-group learn mt-2">
+				<div id="label-todo" class="form-control-plaintext form-control"><span th:text="${todo.nome}">Learn ReactJs</span></div>
+				<div class="input-group-append">
+					<button th:value="${todo.id+','+todo.nome}" type="button" class="btn btn-info edite-btn">
+						<!--gerado com script-->
+					</button>
+					<button th:value="${todo.id}" type="button" class="btn btn-light delete-btn"><i class="fas fa-check"></i></button>				
+				</div>
+			</div>		
+		</div>
+		
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script th:src="@{app.js}"></script>
+</body>
+</html>
